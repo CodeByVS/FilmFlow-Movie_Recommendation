@@ -98,3 +98,34 @@ The recommendation engine uses a content-based filtering algorithm:
 2. **TF-IDF Vectorization**: Converts the text tags into numerical vectors.
 3. **Similarity Calculation**: Calculates the cosine similarity between all pairs of movie vectors.
 4. **Retrieval**: When a movie is selected, the server queries the pre-computed similarity matrix to retrieve the top 6 movies with the highest similarity scores.
+
+---
+
+## 🌐 Production Deployment (Vercel & Render Split Deployment)
+
+For a free and reliable production setup, deploy the Flask API backend to **Render** and the React frontend to **Vercel**.
+
+### Step 1: Deploy Backend to Render.com
+1. Create a free account on [Render.com](https://render.com/).
+2. Click **New +** and select **Web Service**.
+3. Connect your GitHub repository containing this project.
+4. Configure the Web Service settings:
+   - **Language**: `Python`
+   - **Build Command**: `pip install -r requirements.txt`
+   - **Start Command**: `gunicorn app:app`
+5. Deploy the service. Copy your public Render Web Service URL once it is live (e.g., `https://filmflow-backend.onrender.com`).
+> [!NOTE]
+> Since the `similarity.pkl` file is excluded via `.gitignore`, the Render service will automatically calculate the similarity matrix dynamically upon startup.
+
+### Step 2: Deploy Frontend to Vercel
+1. Log in to [Vercel](https://vercel.com/) and click **Add New** > **Project**.
+2. Select your GitHub repository.
+3. In the project setup panel:
+   - **Framework Preset**: `Vite` (or `Other` if not auto-detected)
+   - **Build Command**: `pnpm run build`
+   - **Output Directory**: `dist`
+4. Expand **Environment Variables** and add:
+   - **Name**: `VITE_API_BASE`
+   - **Value**: `https://your-render-app-url.onrender.com` (your copied Render URL)
+5. Click **Deploy**. Vercel will build your React app and point it directly to your Render backend API.
+
