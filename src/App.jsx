@@ -4,7 +4,8 @@ import Hero from './components/Hero';
 import Recommendations, { MoviePoster } from './components/Recommendations';
 import MovieRow from './components/MovieRow';
 
-const API_BASE = 'http://localhost:5000';
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:5000';
+
 
 // Sub-component to manage layout of each search result card when poster is missing
 function SearchCard({ movie, onSelectMovie }) {
