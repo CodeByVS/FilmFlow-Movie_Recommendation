@@ -1,0 +1,18 @@
+# Node dependencies
+node_modules/
+
+# Production build (we keep it tracked if we want to run out-of-the-box, or ignore it if building on deploy)
+# dist/
+
+# Python caching
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Local env files
+.env
+.env.local
+.env.*
+
+# Large similarity matrix model (can be generated dynamically on startup)
+model/similarity.pkl
